@@ -1,0 +1,1 @@
+webpackJsonp([6],{2:function(e,t,o){o("j1ja"),e.exports=o("7cx7")},"7cx7":function(e,t,o){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var a=o("7+uW");a.default.config.productionTip=!1,window.vm=new a.default({el:"#app",template:'<h1 style="margin: auto">Page Two</h1>'})}},[2]);

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.dao.IncomeDao" >
+    <resultMap id="BaseResultMap" type="com.demo.model.Income">
+        <id column="ID" jdbcType="BIGINT" property="id" />
+        <result column="ID_CARD" jdbcType="VARCHAR" property="idCard" />
+        <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
+        <result column="PAY" jdbcType="DECIMAL" property="pay" />
+        <result column="LEVEL" jdbcType="VARCHAR" property="level" />
+        <result column="TYPE" jdbcType="INTEGER" property="type" />
+        <result column="TAX" jdbcType="DECIMAL" property="tax" />
+        <result column="DATE" jdbcType="DATE" property="date" />
+    </resultMap>
+
+
+
+    <select id="findIncomes" resultMap="BaseResultMap">
+      select a.*,b.LEVEL from income a LEFT JOIN staff b on a.ID_CARD = b.ID_CARD
+      where 1= 1
+        <if test="idCard != null">
+            and a.ID_CARD LIKE concat(#{idCard,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="level != null">
+            and  b.`LEVEL` LIKE concat(#{level,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="realName != null">
+            and a.`REAL_NAME` LIKE concat(#{realName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="beginTime != null">
+            and a.`DATE` &gt; #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and a.`DATE` &lt;  #{endTime}
+        </if>
+    </select>
+
+
+    <insert id="insert">
+        INSERT INTO income (ID_CARD, REAL_NAME, PAY, `TYPE`, TAX, `DATE`) VALUES (
+        #{idCard},#{realName},#{pay},#{type},#{tax},#{date}
+        )
+    </insert>
+</mapper>
